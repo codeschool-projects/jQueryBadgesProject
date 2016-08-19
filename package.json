@@ -1,0 +1,24 @@
+{
+  "name": "project-html-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start": "browser-sync start --server ./src --files ./src",
+    "test": "mocha test/*.spec.js --bail --watch"
+  },
+  "author": "Sergio Cruz <sergio@codeschool.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.14.0",
+    "chai": "^3.5.0",
+    "javascript-sandbox": "git+https://github.com/codeschool/javascript-sandbox.git",
+    "jsdom": "^9.4.1",
+    "mocha": "^3.0.1",
+    "sinon": "^1.17.5"
+  },
+  "engines": {
+    "node": ">=6.2",
+    "npm": ">=3.8"
+  }
+}

@@ -1,0 +1,30 @@
+
+body {
+  font-family: 'Helvetica Neue', serif;
+  font-size: 18px;
+}
+
+.course {
+  background: #F5F5F5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px #EAEAEA;
+  height: 350px;
+  margin: 20px 10px;
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.course h3 {
+  color: #999;
+  font-size: 1.9rem;
+  font-weight: 200;
+  min-height: 80px;;
+}
+
+.course img {
+  border: none;
+  max-width: 100%;
+  width: 150px;
+  margin-bottom: 20px;
+}

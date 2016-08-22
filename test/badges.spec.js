@@ -107,27 +107,15 @@ describe('The webpage', () => {
       assert(!!firstCourse);
     });
 
-    it('should have elements with the correct class name', () => {
-      let firstCourse = badges.firstChild;
-      let classes = Array.from(firstCourse.classList);
-      assert(!!classes.find((className) => className === 'col-md-3'));
+    it('should have child with the course class name', () => {
+      const firstCourse = badges.firstChild;
+      const classes = Array.from(firstCourse.classList);
+      assert(!!classes.find((className) => className === 'course'));
     });
 
     it('should have x elements within the #badges', () => {
       const courses = badges.childNodes;
       assert(courses.length === mockData.courses.completed.length)
-    });
-
-    it('should have a div as a child', () => {
-      const firstCourseDiv = badges.firstChild.firstChild;
-      assert(!!firstCourseDiv);
-      assert(firstCourseDiv.nodeName.toLowerCase() === 'div')
-    });
-
-    it('should have child with the course class name', () => {
-      const firstCourseDiv = badges.firstChild.firstChild;
-      const classes = Array.from(firstCourseDiv.classList);
-      assert(!!classes.find((className) => className === 'course'));
     });
 
     it('should have h3 tags with the course titles', () => {

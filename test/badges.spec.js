@@ -60,91 +60,107 @@ describe('The webpage', () => {
 
   });
 
-  describe('the jQuery.ajax', () => {
-    it('should call method', () => {
-      assert(spy.called);
+  describe('the jQuery.ajax should', () => {
+    it('call method @ajax', () => {
+      assert(spy.called, 'The `jQuery.ajax()` method needs to be called.');
     });
 
-    it('should call with an options object as argument', () => {
-      assert(spy.calledWith(sinon.match.object));
+    it('call with an options object as argument @ajax', () => {
+      assert(spy.calledWith(sinon.match.object), '`jQuery.ajax()` needs to be called with an object.');
     });
 
-    it('should call with the url property', () => {
-      assert(spy.calledWith(sinon.match.has('url')));
+    it('call with the url property @ajax', () => {
+      assert(spy.calledWith(sinon.match.has('url')), 'The object sent as an argument to `jQuery.ajax()` needs to contain a `title` field.');
     });
 
-    it('should call with the dataType property', () => {
-      assert(spy.calledWith(sinon.match.has('dataType')));
+    it('call with correct URL @ajax', () => {
+      assert(codeschoolRegex.test(spy.firstCall.args[0].url), 'The URL sent to `jQuery.ajax` does not match the Code School API endpoint provided.');
     });
 
-    it('should call with the success property', () => {
-      assert(spy.calledWith(sinon.match.has('success')));
+    it('call with the dataType property @ajax', () => {
+      assert(spy.calledWith(sinon.match.has('dataType')), 'The object sent as an argument to `jQuery.ajax()` needs to contain a `dataType` field.');
     });
 
-    it('should call with correct URL', () => {
-      assert(codeschoolRegex.test(spy.firstCall.args[0].url));
+    it('call with jsonp dataType @ajax', () => {
+      assert(spy.firstCall.args[0].dataType === 'jsonp', 'The `dataType` sent to `jQuery.ajax()` needs to be `jsonp`');
     });
 
-    it('should call with jsonp dataType', () => {
-      assert(spy.firstCall.args[0].dataType === 'jsonp');
+    it('call with the success property @ajax', () => {
+      assert(spy.calledWith(sinon.match.has('success')), 'The object sent as an argument to `jQuery.ajax()` needs to contain a `success` callback.');
     });
 
-    it('should call with success function', () => {
-      assert(typeof spy.firstCall.args[0].success === 'function');
+    it('call with success function @ajax', () => {
+      assert(typeof spy.firstCall.args[0].success === 'function', 'The `success` property sent to `jQuery.ajax()` needs to be a function.');
     });
   });
 
-  describe('the DOM', () => {
+  describe('the DOM should', () => {
     let badges;
     before(() => badges = document.querySelector('#badges'));
 
-    it('should have the #badges element', () => {
-      assert(badges);
+    it('have the #badges element @dom', () => {
+      assert(badges, 'Our page needs a `#badges` element.');
     });
 
-    it('should have at least one child element', () => {
+    it('have at least one child element @dom', () => {
       let firstCourse = badges.firstChild;
-      assert(!!firstCourse);
+      assert(!!firstCourse, 'Our `#badges` element needs at least one child element.');
     });
 
-    it('should have child with the course class name', () => {
+    it('have child with the course class name @dom', () => {
       const firstCourse = badges.firstChild;
       const classes = Array.from(firstCourse.classList);
-      assert(!!classes.find((className) => className === 'course'));
+      assert(
+        !!classes.find((className) => className === 'course'),
+        'The immediate children to `#badges` need to have `course` as their CSS class.'
+      );
     });
 
-    it('should have x elements within the #badges', () => {
+    it('have x elements within the #badges @dom', () => {
       const courses = badges.childNodes;
-      assert(courses.length === mockData.courses.completed.length)
+      assert(
+        courses.length === mockData.courses.completed.length,
+        'We need a `.course` element for each item completed course in our AJAX response.'
+      )
     });
 
-    it('should have h3 tags with the course titles', () => {
+    it('have h3 tags with the course titles @dom', () => {
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const h3 = course.querySelector('h3');
-        assert(!!h3);
+        assert(!!h3, 'Each `.course` needs an `h3` tag.');
+
         const titleRegex = new RegExp(mockData.courses.completed[i].title, 'i');
-        assert(titleRegex.test(h3.textContent));
+        assert(
+          titleRegex.test(h3.textContent),
+          'Our course `h3` tags need to contain the title of the courses in the completed courses array.'
+        );
       });
     });
 
-    it('should have an img with the badge url', () => {
+    it('have an img with the badge url @dom', () => {
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const img = course.querySelector('img');
-        assert(!!img);
-        assert(typeof img.src === 'string');
-        assert(mockData.courses.completed[i].badge === img.src.toLowerCase().trim());
+        assert(!!img, 'Our `.course` elements need to contain an `img` element.');
+        assert(typeof img.src === 'string', 'Our course `img` elements need a `src` attribute.');
+        assert(
+          mockData.courses.completed[i].badge === img.src.toLowerCase().trim(),
+          'The `src` attribute of our course images need to match the "course badge URL" that is returned from our API.'
+        );
       });
     });
 
-    it('should have an anchor pointing to the course url', () => {
+    it('have an anchor pointing to the course url @dom', () => {
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const anchor = course.querySelector('a');
-        assert(!!anchor);
-        assert(typeof anchor.href === 'string');
-        assert(mockData.courses.completed[i].url === anchor.href.toLowerCase().trim());
+        assert(!!anchor, 'Our `.course` elements need to contain an `a` element.');
+        assert(typeof anchor.href === 'string', 'Our course `a` elements need an `href` attribute.');
+        assert(
+          mockData.courses.completed[i].url === anchor.href.toLowerCase().trim(),
+          'Our course `a` elements need to point to the "Course URL" that is returned from our API.'
+        );
       });
     });
 

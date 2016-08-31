@@ -29,8 +29,8 @@ body {
 
 .course img {
   border: none;
+  height: 150px;
   margin-bottom: 20px;
-  max-height: 150px;
   max-width: 100%;
   width: 150px;
 }

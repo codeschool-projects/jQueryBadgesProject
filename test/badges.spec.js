@@ -98,16 +98,23 @@ describe('The webpage', () => {
     let badges;
     before(() => badges = document.querySelector('#badges'));
 
+    function hasFirstCourse() {
+      assert(
+        !!badges.firstChild,
+        'Our `#badges` element does not have a `.course` child yet.'
+      );
+    }
+
     it('have the #badges element @course-elements', () => {
       assert(badges, 'Our page needs a `#badges` element.');
     });
 
     it('have at least one child element @course-elements', () => {
-      let firstCourse = badges.firstChild;
-      assert(!!firstCourse, 'Our `#badges` element needs at least one child element.');
+      hasFirstCourse();
     });
 
     it('have child with the course class name @course-elements', () => {
+      hasFirstCourse();
       const firstCourse = badges.firstChild;
       const classes = Array.from(firstCourse.classList);
       assert(
@@ -117,6 +124,7 @@ describe('The webpage', () => {
     });
 
     it('have x elements within the #badges @course-elements', () => {
+      hasFirstCourse();
       assert(badges, 'Our page needs a `#badges` element.');
       const courses = badges.childNodes;
       assert(
@@ -126,6 +134,7 @@ describe('The webpage', () => {
     });
 
     it('have h3 tags with the course titles @course-titles', () => {
+      hasFirstCourse();
       assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
@@ -141,6 +150,7 @@ describe('The webpage', () => {
     });
 
     it('have an img with the badge url @course-images', () => {
+      hasFirstCourse();
       assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
@@ -155,6 +165,7 @@ describe('The webpage', () => {
     });
 
     it('have an anchor pointing to the course url @course-buttons', () => {
+      hasFirstCourse();
       assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {

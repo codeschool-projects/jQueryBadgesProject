@@ -98,16 +98,16 @@ describe('The webpage', () => {
     let badges;
     before(() => badges = document.querySelector('#badges'));
 
-    it('have the #badges element @dom', () => {
+    it('have the #badges element @course-elements', () => {
       assert(badges, 'Our page needs a `#badges` element.');
     });
 
-    it('have at least one child element @dom', () => {
+    it('have at least one child element @course-elements', () => {
       let firstCourse = badges.firstChild;
       assert(!!firstCourse, 'Our `#badges` element needs at least one child element.');
     });
 
-    it('have child with the course class name @dom', () => {
+    it('have child with the course class name @course-elements', () => {
       const firstCourse = badges.firstChild;
       const classes = Array.from(firstCourse.classList);
       assert(
@@ -116,7 +116,7 @@ describe('The webpage', () => {
       );
     });
 
-    it('have x elements within the #badges @dom', () => {
+    it('have x elements within the #badges @course-elements', () => {
       const courses = badges.childNodes;
       assert(
         courses.length === mockData.courses.completed.length,
@@ -124,7 +124,7 @@ describe('The webpage', () => {
       )
     });
 
-    it('have h3 tags with the course titles @dom', () => {
+    it('have h3 tags with the course titles @course-titles', () => {
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const h3 = course.querySelector('h3');
@@ -138,7 +138,7 @@ describe('The webpage', () => {
       });
     });
 
-    it('have an img with the badge url @dom', () => {
+    it('have an img with the badge url @course-images', () => {
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const img = course.querySelector('img');
@@ -151,7 +151,7 @@ describe('The webpage', () => {
       });
     });
 
-    it('have an anchor pointing to the course url @dom', () => {
+    it('have an anchor pointing to the course url @course-buttons', () => {
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const anchor = course.querySelector('a');

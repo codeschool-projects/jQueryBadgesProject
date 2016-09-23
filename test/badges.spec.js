@@ -117,6 +117,7 @@ describe('The webpage', () => {
     });
 
     it('have x elements within the #badges @course-elements', () => {
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = badges.childNodes;
       assert(
         courses.length === mockData.courses.completed.length,
@@ -125,6 +126,7 @@ describe('The webpage', () => {
     });
 
     it('have h3 tags with the course titles @course-titles', () => {
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const h3 = course.querySelector('h3');
@@ -139,6 +141,7 @@ describe('The webpage', () => {
     });
 
     it('have an img with the badge url @course-images', () => {
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const img = course.querySelector('img');
@@ -152,6 +155,7 @@ describe('The webpage', () => {
     });
 
     it('have an anchor pointing to the course url @course-buttons', () => {
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const anchor = course.querySelector('a');

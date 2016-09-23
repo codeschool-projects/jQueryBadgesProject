@@ -37,7 +37,14 @@ describe('The webpage', () => {
 
     window.addEventListener('load', () => {
 
-      spy = sinon.stub(window.$, 'ajax', ({url, dataType, success}) => {
+      spy = sinon.stub(window.$, 'ajax', (url, settings) => {
+
+        if (!settings) {
+          settings = url;
+          url = settings.url;
+        }
+
+        const {dataType, success} = settings;
 
         if (!codeschoolRegex.test(url)) {
           // wrong url
@@ -66,31 +73,62 @@ describe('The webpage', () => {
     });
 
     it('call with an options object as argument @ajax', () => {
-      assert(spy.calledWith(sinon.match.object), '`jQuery.ajax()` needs to be called with an object.');
+      assert(
+        spy.calledWith(sinon.match.object) || spy.calledWith(sinon.match.string, sinon.match.object),
+        '`jQuery.ajax()` needs to be called with the correct signature (string, object) or just an object.'
+      );
     });
 
     it('call with the url property @ajax', () => {
-      assert(spy.calledWith(sinon.match.has('url')), 'The object sent as an argument to `jQuery.ajax()` needs to contain a `title` field.');
+
+      let url = spy.firstCall.args[0];
+      let settings = spy.firstCall.args[1];
+
+      if (!settings) {
+        settings = url;
+        url = settings.url;
+      }
+
+      assert(!!url, 'The `jQuery.ajax()` needs a `url` sent to it.');
     });
 
     it('call with correct URL @ajax', () => {
-      assert(codeschoolRegex.test(spy.firstCall.args[0].url), 'The URL sent to `jQuery.ajax` does not match the Code School API endpoint provided.');
+
+      let url = spy.firstCall.args[0];
+      let settings = spy.firstCall.args[1];
+
+      if (!settings) {
+        settings = url;
+        url = settings.url;
+      }
+
+      assert(codeschoolRegex.test(url), 'The URL sent to `jQuery.ajax` does not match the Code School API endpoint provided.');
     });
 
-    it('call with the dataType property @ajax', () => {
-      assert(spy.calledWith(sinon.match.has('dataType')), 'The object sent as an argument to `jQuery.ajax()` needs to contain a `dataType` field.');
-    });
+    it('call with the jsonp dataType property @ajax', () => {
 
-    it('call with jsonp dataType @ajax', () => {
-      assert(spy.firstCall.args[0].dataType === 'jsonp', 'The `dataType` sent to `jQuery.ajax()` needs to be `jsonp`');
+      let url = spy.firstCall.args[0];
+      let settings = spy.firstCall.args[1];
+
+      if (!settings) {
+        settings = url;
+      }
+
+      assert(settings.dataType, 'The object sent as an argument to `jQuery.ajax()` needs to contain a `dataType` field.');
+      assert(settings.dataType === 'jsonp', 'The `dataType` sent to `jQuery.ajax()` needs to be `jsonp`');
     });
 
     it('call with the success property @ajax', () => {
-      assert(spy.calledWith(sinon.match.has('success')), 'The object sent as an argument to `jQuery.ajax()` needs to contain a `success` callback.');
-    });
 
-    it('call with success function @ajax', () => {
-      assert(typeof spy.firstCall.args[0].success === 'function', 'The `success` property sent to `jQuery.ajax()` needs to be a function.');
+      let url = spy.firstCall.args[0];
+      let settings = spy.firstCall.args[1];
+
+      if (!settings) {
+        settings = url;
+      }
+
+      assert(settings.success, 'The object sent as an argument to `jQuery.ajax()` needs to contain a `success` callback.');
+      assert(typeof settings.success === 'function', 'The `success` property sent to `jQuery.ajax()` needs to be a function.');
     });
   });
 
@@ -125,6 +163,7 @@ describe('The webpage', () => {
 
     it('have x elements within the #badges @course-elements', () => {
       hasFirstCourse();
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = badges.childNodes;
       assert(
         courses.length === mockData.courses.completed.length,
@@ -134,6 +173,7 @@ describe('The webpage', () => {
 
     it('have h3 tags with the course titles @course-titles', () => {
       hasFirstCourse();
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const h3 = course.querySelector('h3');
@@ -149,6 +189,7 @@ describe('The webpage', () => {
 
     it('have an img with the badge url @course-images', () => {
       hasFirstCourse();
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const img = course.querySelector('img');
@@ -163,6 +204,7 @@ describe('The webpage', () => {
 
     it('have an anchor pointing to the course url @course-buttons', () => {
       hasFirstCourse();
+      assert(badges, 'Our page needs a `#badges` element.');
       const courses = Array.from(badges.querySelectorAll('.course'));
       courses.forEach((course, i) => {
         const anchor = course.querySelector('a');

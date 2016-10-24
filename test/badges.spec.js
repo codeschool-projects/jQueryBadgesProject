@@ -56,13 +56,16 @@ describe('The webpage', () => {
           success(mockData);
         }
 
-        done()
+        done();
       });
 
       // Adds script tag
       const scriptEl = window.document.createElement('script');
       scriptEl.appendChild(window.document.createTextNode(srcScript));
       window.document.body.appendChild(scriptEl);
+      setTimeout(()=> {
+        done();
+      }, 2000)
     });
 
   });
@@ -80,6 +83,7 @@ describe('The webpage', () => {
     });
 
     it('call with the url property @ajax', () => {
+      assert(spy.called, 'The `jQuery.ajax()` method needs to be called.');
 
       let url = spy.firstCall.args[0];
       let settings = spy.firstCall.args[1];
@@ -93,6 +97,7 @@ describe('The webpage', () => {
     });
 
     it('call with correct URL @ajax', () => {
+      assert(spy.called, 'The `jQuery.ajax()` method needs to be called.');
 
       let url = spy.firstCall.args[0];
       let settings = spy.firstCall.args[1];
@@ -106,6 +111,7 @@ describe('The webpage', () => {
     });
 
     it('call with the jsonp dataType property @ajax', () => {
+      assert(spy.called, 'The `jQuery.ajax()` method needs to be called.');
 
       let url = spy.firstCall.args[0];
       let settings = spy.firstCall.args[1];
@@ -119,6 +125,7 @@ describe('The webpage', () => {
     });
 
     it('call with the success property @ajax', () => {
+      assert(spy.called, 'The `jQuery.ajax()` method needs to be called.');
 
       let url = spy.firstCall.args[0];
       let settings = spy.firstCall.args[1];

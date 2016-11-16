@@ -5,13 +5,15 @@
   "private": true,
   "scripts": {
     "start": "browser-sync start --server ./src --files ./src",
-    "test": "mocha -t 20000 test/*.spec.js",
+    "test": "mocha -t 20000 --compilers js:babel-register test/*.spec.js",
     "test-watch": "npm test -- --bail --watch",
     "deploy:github-pages": "git subtree push --prefix src origin gh-pages"
   },
   "author": "Sergio Cruz <sergio@codeschool.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babel-register": "^6.18.0",
     "browser-sync": "^2.14.0",
     "chai": "^3.5.0",
     "javascript-sandbox": "git+https://github.com/codeschool/javascript-sandbox.git",
@@ -20,7 +22,10 @@
     "sinon": "^1.17.5"
   },
   "engines": {
-    "node": ">=6.2",
-    "npm": ">=3.8"
+    "node": ">=4.6",
+    "npm": ">=2.15"
+  },
+  "babel": {
+    "presets": ["es2015"]
   }
 }

@@ -7,7 +7,7 @@ const sinon = require('sinon');
 const srcScript = fs.readFileSync('./src/assets/main.js', 'utf8');
 
 const scriptRegex = /<\s*script[\s\S]*?>[\s\S]*?<\s*\/\s*script\s*>/ig;
-const codeschoolRegex = /https:\/\/www\.codeschool\.com\/users\/\d+\.json/i;
+const codeschoolRegex = /https:\/\/www\.codeschool\.com\/users\/.+\.json/i;
 
 // HTML Page
 let srcHtml = fs.readFileSync('./src/index.html', 'utf8');

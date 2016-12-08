@@ -21,8 +21,6 @@ You will further your JavaScript and jQuery skills, as well as feel more comfort
 
 You’ll build a personal web page that displays the courses you’ve completed on Code School by pulling data from the Code School website.
 
-![Poster](http://courseware.codeschool.com.s3.amazonaws.com/projects/use-jquery-to-fetch-and-show-code-school-badges-using-ajax.png)
-
 ## Setup Instructions
 
 Once you have cloned the forked repository, go into the directory containing the project and look for the `/src` directory. This is the directory where you will be making changes when you start following the step-by-step instructions. You can simply open those files in a text editor and get started.

@@ -1,7 +1,7 @@
 $(function() {
 
   $.ajax({
-    url: 'https://www.codeschool.com/users/185856.json',
+    url: 'https://www.codeschool.com/users/sergiocruz.json',
     dataType: 'jsonp',
     success: function(data) {
       populateWithCourses(data.courses.completed)
